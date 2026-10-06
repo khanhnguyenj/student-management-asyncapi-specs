@@ -1,0 +1,33 @@
+asyncapi: '3.0.0'
+info:
+  title: Student Service
+  version: '1.0.0'
+  description: Async events for manipulating students
+
+channels:
+  studentCreated:
+    address: 'student/created'
+    messages:
+      studentCreatedMessage:
+        $ref: '#/components/messages/StudentCreated'
+
+operations:
+  processStudentCreatedMessage:
+    action: receive
+    channel:
+      $ref: '#/channels/studentCreated'
+
+components:
+  messages:
+    StudentCreated:
+      payload:
+        $ref: '#/components/schemas/StudentCreatedPayload'
+
+  schemas:
+    StudentCreatedPayload:
+      type: object
+      properties:
+        id: { type: string }
+        code: { type: string }
+        name: { type: string }
+        classId: { type: string }
